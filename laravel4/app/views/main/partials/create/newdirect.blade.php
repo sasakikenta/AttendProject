@@ -14,25 +14,36 @@
                                 <td class="td_4" width="50%">ID</td><td class="td_6"></td>
                             </tr>
                             <tr>
-                                <td class="td_4">ホール名</td><td class="td_6"></td>
+                                <td class="td_4">ホール名</td>
+                                <td class="td_6">{{ Form::select("buy_hall", $halls, "", ["id"=>"name1"]) }}</td>
                             </tr>
                             <tr>
-                                <td class="td_4">機種名</td><td class="td_6"></td>
+                                <td class="td_4">機種名</td>
+                                <td class="td_6">{{ Form::select("machine", $machines, "", ["id"=>"name1"]) }}</td>
                             </tr>
                             <tr>
-                                <td class="td_4">適用</td><td class="td_6"></td>
+                                <td class="td_4">適用</td>
+                                <td class="td_6">
+                                    {{ Form::label('stock','在庫') }}{{ Form::radio("delivery", "1", true, array('id' => 'stock')) }}
+                                    &nbsp;
+                                    {{ Form::label('deli','出庫済') }}{{ Form::radio("delivery", "2", false, array('id' => 'deli')) }}
+                                </td>
                             </tr>
                             <tr>
-                                <td class="td_4">新台</td><td class="td_6"></td>
+                                <td class="td_4">新台</td>
+                                <td class="td_6">{{ Form::text("new", "") }}</td>
                             </tr>
                             <tr>
-                                <td class="td_4">ユニット</td><td class="td_6"></td>
+                                <td class="td_4">ユニット</td>
+                                <td class="td_6">{{ Form::text("unit", "") }}</td>
                             </tr>
                             <tr>
-                                <td class="td_4">納品予定</td><td class="td_6"></td>
+                                <td class="td_4">納品予定</td>
+                                <td class="td_6">{{ Form::text("deli_oneday", "", ["class"=>"datepicker"]) }}</td>
                             </tr>
                             <tr>
-                                <td class="td_4">開店予定</td><td class="td_6"></td>
+                                <td class="td_4">開店予定</td>
+                                <td class="td_6">{{ Form::text("open_oneday", "", ["class"=>"datepicker"]) }}</td>
                             </tr>
                             <tr>
                                 <td class="td_4">発注先</td><td class="td_6"></td>

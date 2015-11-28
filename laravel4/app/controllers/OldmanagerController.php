@@ -12,6 +12,13 @@ class OldmanagerController extends BaseController
 		return View::make('home.index', compact('data'));
 	}
 
+	public function edit($id)
+	{
+		if ($id != 0) {
+			
+		}
+	}
+
 	/**
 	 *
 	 *
@@ -34,7 +41,30 @@ class OldmanagerController extends BaseController
 
 		TblOldmanager::insert($data);
 
-		return Response::json(['result' => 'OK'], 200);
+		return Response::json(['result' => 'OK', 'id' => $id, 'no' => $no], 200);
+	}
+
+	public function update() {
+		$input = Input::all();
+		Log::debug(print_r($input, true));
+
+		$data = $input;
+		Log::debug(print_r($data, true));
+
+		$id = $data['id'];
+		TblOldmanager::whereId($id)
+					 ->whereDel(TblOldmanager::STATUS_NOT_DELETE);
+
+		$no = TblOldmanager::whereC_s($data['c_s'])
+							->whereClass($data['class'])
+							->whereDel(TblOldmanager::STATUS_NOT_DELETE)
+							->max('no') + 1;
+		$data['no'] = $no;
+		Log::debug(print_r($data, true));
+
+		TblOldmanager::insert($data);
+
+		return Response::json(['result' => 'OK', 'id' => $id, 'no' => $no], 200);
 	}
 
 }

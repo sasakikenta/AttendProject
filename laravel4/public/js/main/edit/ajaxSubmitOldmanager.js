@@ -1,10 +1,7 @@
 $(function() {
-	$('#submit-oldmanager').on('click', function(e) {
-		e.preventDefault();
 
-		var url = $(this).data("url");
-
-		var data = {
+	var data = {
+			id: $("oldmanager-id").text(),
 			c_s: $('[name="c_s"]:checked').val(),
 			class: $('[name="class"]:checked').val(),
 			day: $('[name="day"]').val(),
@@ -28,18 +25,16 @@ $(function() {
 			deli_day: $('[name="deli_day"]').val(),
 			delivery: $('[name="delivery"]:checked').val(),
 		};
-
-		$.ajax({
-			type: 'POST',
-			url: url,
+	$('#submit-oldmanager')
+		.ajaxsubmit({
 			data: data,
-			success: function () {
-				alert("登録成功しました。");
-			},
-			error: function (XMLHttpRequest, textStatus, errorThrown) {
-				alert("通信エラー");
-			},
+			success: function(response) {
+				$(".createbuttons").hide();
+				$(".updatebuttons").show();
+				alert('登録しました');
+				$("#oldmanager-id").text(response.id);
+				$("#oldmanager-no").text(response.no);
+			}
 		});
 
-	});
 });
