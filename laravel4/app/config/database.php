@@ -45,7 +45,7 @@ return array(
 	*/
 
 	'connections' => array(
-
+		//なんでかsqliteの設定が強制的に使われちゃう
 		'sqlite' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',

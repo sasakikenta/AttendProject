@@ -25,7 +25,7 @@ $(function() {
 
 	//関数まとめ
 	function editZoneInit() {
-		oldmanagerNoChange();
+		//oldmanagerNoChange();
 		oldmanagerBuytotalChange();
 		oldmanagerArari();
 	}

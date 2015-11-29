@@ -8,6 +8,8 @@ class TblOldmanager extends Model
 	
 	protected $guarded = ['id'];
 
+	public $timestamps = false;
+
 	const STATUS_C = 1;
 	const STATUS_S = 2;
 
