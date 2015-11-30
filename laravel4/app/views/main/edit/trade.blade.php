@@ -10,6 +10,10 @@
       </style>
 @stop
 
+@section('title')
+売上管理 入力(業販)
+@stop
+
 @section('content')
 @if ($data['id'] == '')
     {{ Form::open(['url' => route( 'trade.create' )]) }}

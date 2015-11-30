@@ -4,35 +4,28 @@ class AuthController extends BaseController {
 
 	public function getLogin()
 	{
-		return View::make('auth.login');
+		$default = ['' => '選択してください'];
+		$users = $default + MstUser::select('id', DB::raw('CONCAT(id, ".", name1) AS name1'))->lists('name1','id');
+		return View::make('auth.login', compact('users'));
 	}
 
 	public function postLogin()
 	{
-		$input = InputModel::make('forms.login');
+		$input = Input::only(array('username', 'password'));
 
-		// rule based validation
-		if ($input->fails()) {
-			return Redirect::to('/login')
-				->withErrors($input->errors())
-				->withInput()
-			;
+		$auth = User::whereId($input['username'])->wherePass($input['password'])->first();
+		if ($auth) {
+			Auth::login($auth);
+			return Redirect::route('hiro.index');
+		} else {
+			return Redirect::back()->withInput();
 		}
-
-		// value based validation
-		if ($input->username !== 'user1' || $input->password !== 'pass') {
-			return Redirect::to('/login')
-				->withErrors([trans('auth.error-invalid-credential')])
-				->withInput()
-			;
-		}
-
-		return Redirect::to('/home');
 	}
 
 	public function getLogout()
 	{
-		return Redirect::to('/home');
+		Auth::logout();
+		return Redirect::to('/login');
 	}
 
 }

@@ -10,6 +10,10 @@
       </style>
 @stop
 
+@section('title')
+売上管理 入力(直販中古)
+@stop
+
 @section('content')
 @if ($data['id'] == '')
     {{ Form::open(['url' => route( 'olddirect.create' )]) }}

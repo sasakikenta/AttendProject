@@ -12,6 +12,10 @@
 
 @stop
 
+@section('title')
+新規 入力
+@stop
+
 @section('js-link')
 @parent
 {{ HTML::script('js/main/detail/oldmanager.js') }}

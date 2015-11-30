@@ -1,8 +1,10 @@
 @extends('layouts.main')
 
+@section('title')
+メニュー
+@stop
+
 @section('content')
-
-
 <div class="contents_base">
   <div class="contents_base_color">
 
@@ -74,26 +76,4 @@
 </table>
 </div>
 </div>
-<!--
-<div style="display:none;">
-  <div id="oldmanager-edit">
-  @include('main.partials.create.oldmanager')
-  </div>
-</div>
-<div style="display:none;">
-  <div id="trade-edit">
-@include('main.partials.create.trade')
-  </div>
-</div>
-<div style="display:none;">
-  <div id="newdirect-edit">
-@include('main.partials.create.newdirect')
-  </div>
-</div>
-<div style="display:none;">
-  <div id="olddirect-edit">
-@include('main.partials.create.olddirect')
-  </div>
-</div>
--->
 @stop

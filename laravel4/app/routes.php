@@ -11,18 +11,11 @@
 |
 */
 
-Route::group(['prefix' => 'hiro'], function() {
+Route::group(['prefix' => 'hiro', 'before' => 'auth'], function() {
 	Route::get('', [
 		'as' => 'hiro.index',
 		'uses' => function() {
-			$default = ['' => ''];
-			$users = $default + MstUser::select('id', DB::raw('CONCAT(id, ".", name1) AS name1'))->lists('name1','id');
-			$halls = $default + MstHall::select('id', DB::raw('CONCAT(id, ".", name1) AS name1'))->lists('name1','id');
-			$machines = $default + MstMachine::select('id', DB::raw('CONCAT(id, ".", name1) AS name1'))->lists('name1','id');
-			$legals = $default + MstLegal::select('id', DB::raw('CONCAT(id, ".", name1) AS name1'))->lists('name1','id');
-			$sources = $default + MstOrdersource::select('id', DB::raw('CONCAT(id, ".", name1) AS name1'))->lists('name1','id');
-			$contacts = $default + MstOrdercontact::select('id', DB::raw('CONCAT(id, ".", name1) AS name1'))->lists('name1','id');
-			return View::make('main.menu', compact('users', 'halls', 'machines', 'legals', 'sources', 'contacts'));
+			return View::make('main.menu');
 		},
 		]);
 	Route::get('{mstname}/master', [
@@ -42,11 +35,6 @@ Route::group(['prefix' => 'hiro'], function() {
 		Route::post('create', [
 			'as' => 'oldmanager.create',
 			'uses' => 'OldmanagerController@create'
-			]);
-		// ajaxでの新規登録用
-		Route::post('', [
-			'as' => 'oldmanager.store',
-			'uses' => 'OldmanagerController@store'
 			]);
 		Route::post('{id}/update', [
 			'as' => 'oldmanager.update',
@@ -120,18 +108,15 @@ Route::group(['prefix' => 'hiro'], function() {
 });
 
 //メニューへ。
-Route::get('/', ['uses' => 'OldmanagerController@index']);
+Route::get('/', [
+	'before' => 'auth',
+	'uses' => function() {
+	return View::make('hello');
+}]);
 
-Route::get('/aaa', function() {
-	echo "hello";
-});
 
-Route::get('/test', function() {
-	return View::make('main.menu');
-});
 Route::get('/login', 'AuthController@getLogin');
 Route::post('/login', 'AuthController@postLogin');
-Route::get('/logout', 'AuthController@getLogout');
-Route::get('/home', function() {
-	return 'Login OK.';
-});
+Route::get('/logout', [
+	'as' => 'logout',
+	'uses' => 'AuthController@getLogout']);
