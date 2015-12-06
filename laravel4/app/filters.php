@@ -13,7 +13,15 @@
 
 App::before(function($request)
 {
-	//
+	$default = ['' => ''];
+	$users = $default + MstUser::select('id', DB::raw('CONCAT(id, ".", name1) AS name1'))->whereDel(0)->lists('name1','id');
+	$halls = $default + MstHall::select('id', DB::raw('CONCAT(id, ".", name1) AS name1'))->whereDel(0)->lists('name1','id');
+	$machines = $default + MstMachine::select('id', DB::raw('CONCAT(id, ".", name1) AS name1'))->whereDel(0)->lists('name1','id');
+	$legals = $default + MstLegal::select('id', DB::raw('CONCAT(id, ".", name1) AS name1'))->whereDel(0)->lists('name1','id');
+	$sources = $default + MstOrdersource::select('id', DB::raw('CONCAT(id, ".", name1) AS name1'))->whereDel(0)->lists('name1','id');
+	$contacts = $default + MstOrdercontact::select('id', DB::raw('CONCAT(id, ".", name1) AS name1'))->whereDel(0)->lists('name1','id');
+
+	View::share(compact('users', 'halls', 'machines', 'legals', 'sources', 'contacts'));
 });
 
 

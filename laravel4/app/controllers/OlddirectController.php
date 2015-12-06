@@ -32,19 +32,15 @@ class OlddirectController extends BaseController
 			];
 		} else {
 			$data = TblOlddirect::whereId($id)->first();
+			$data['note'] = $this->selectEscape( $data['note'] );
+			$data['deli_oneday'] = ($data['deli_oneday'] == "0000-00-00") ? '' : $data['deli_oneday'];
+			$data['open_oneday'] = ($data['open_oneday'] == "0000-00-00") ? '' : $data['open_oneday'];
+			$data['collect_oneday'] = ($data['collect_oneday'] == "0000-00-00") ? '' : $data['collect_oneday'];
+			$data['collect_day'] = ($data['collect_day'] == "0000-00-00") ? '' : $data['collect_day'];
 		}
 		Log::debug(print_r($data, true));
-		$default = ['' => ''];
-		$users = $default + MstUser::select('id', DB::raw('CONCAT(id, ".", name1) AS name1'))->lists('name1','id');
-		$halls = $default + MstHall::select('id', DB::raw('CONCAT(id, ".", name1) AS name1'))->lists('name1','id');
-		$machines = $default + MstMachine::select('id', DB::raw('CONCAT(id, ".", name1) AS name1'))->lists('name1','id');
-		$legals = $default + MstLegal::select('id', DB::raw('CONCAT(id, ".", name1) AS name1'))->lists('name1','id');
-		$sources = $default + MstOrdersource::select('id', DB::raw('CONCAT(id, ".", name1) AS name1'))->lists('name1','id');
-		$contacts = $default + MstOrdercontact::select('id', DB::raw('CONCAT(id, ".", name1) AS name1'))->lists('name1','id');
-		return View::make(
-			'main.edit.olddirect',
-			compact('data', 'users', 'halls', 'machines', 'legals', 'sources', 'contacts')
-			);
+		return View::make('main.edit.olddirect', compact('data'))
+						->with('message', Session::pull('message', false));
 	}
 
 	/**
@@ -57,12 +53,13 @@ class OlddirectController extends BaseController
 		$id = TblOlddirect::max('id') + 1;
 
 		$input['id'] = $id;
+		$input['note'] = $this->inputEscape( $input['note'] );
 		unset($input['_token']);
 		Log::debug(print_r($input, true));
 
 		TblOlddirect::insert($input);
 
-		return Redirect::route('olddirect.edit', ['id' => $id]);
+		return Redirect::route('olddirect.edit', ['id' => $id])->with('message', '正常に登録しました。');
 	}
 
 	/**
@@ -72,12 +69,13 @@ class OlddirectController extends BaseController
 	public function update($id) {
 		$befor = TblOlddirect::whereId($id)->first();
 		$input = Input::all();
+		$input['note'] = $this->inputEscape( $input['note'] );
 		unset($input['_token']);
 		Log::debug(print_r($input, true));
 
 		TblOlddirect::find($id)->fill($input)->save();
 
-		return Redirect::route('olddirect.edit', ['id' => $id]);
+		return Redirect::route('olddirect.edit', ['id' => $id])->with('message', '正常に登録しました。');
 	}
 
 	/**
@@ -87,7 +85,7 @@ class OlddirectController extends BaseController
 	public function delete($id) {
 		TblOlddirect::find($id)->fill(['del'=>1])->save();
 
-		return Redirect::route('olddirect.edit', ['id' => 0]);
+		return Redirect::route('olddirect.edit', ['id' => 0])->with('message', '削除しました。');
 	}
 
 }

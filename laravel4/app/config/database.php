@@ -45,49 +45,16 @@ return array(
 	*/
 
 	'connections' => array(
-		//なんでかsqliteの設定が強制的に使われちゃう
-		'sqlite' => array(
-			'driver'    => 'mysql',
-			'host'      => 'localhost',
-			'database'  => 'hiro_co',
-			'username'  => 'root',
-			'password'  => '',
-			'charset'   => 'utf8',
-			'collation' => 'utf8_general_ci',
-			'prefix'    => '',
-		),
-
 		'mysql' => array(
 			'driver'    => 'mysql',
-			'host'      => 'localhost',
+			'host'      => '192.168.1.250',
 			'database'  => 'hiro_co',
-			'username'  => 'root',
+			'username'  => 'hiro',
 			'password'  => '',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_general_ci',
 			'prefix'    => '',
 		),
-
-		'pgsql' => array(
-			'driver'   => 'pgsql',
-			'host'     => 'localhost',
-			'database' => '',
-			'username' => '',
-			'password' => '',
-			'charset'  => 'utf8',
-			'prefix'   => '',
-			'schema'   => 'public',
-		),
-
-		'sqlsrv' => array(
-			'driver'   => 'sqlsrv',
-			'host'     => 'localhost',
-			'database' => 'database',
-			'username' => 'root',
-			'password' => '',
-			'prefix'   => '',
-		),
-
 	),
 
 	/*

@@ -21,8 +21,8 @@ return array(
 	'connections' => array(
 
 		'mysql' => array(
-			'username'  => '',
-			'password'  => '',
+			'username'  => 'root',
+			'password'  => 'hirosystem',
 			'prefix'    => '',
 		),
 

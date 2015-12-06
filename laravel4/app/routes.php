@@ -25,6 +25,19 @@ Route::group(['prefix' => 'hiro', 'before' => 'auth'], function() {
 			return Redirect::to($url);
 		},
 		]);
+	Route::post('getlegal', [
+		'as' => 'hiro.getlegal',
+		'uses' => function() {
+			$hallid = Input::only(['hallid']);
+			Log::debug($hallid);
+			$hall = MstHall::whereId($hallid)->first();
+			Log::debug(print_r($hall, true));
+			$legal = MstLegal::whereId(print_r($hall['legal'], true))->first();
+			Log::debug(print_r($legal, true));
+			return Response::json(['name' => $legal['name1']]);
+		},
+		]);
+
 
 	// 中古機管理表
 	Route::group(['prefix' => 'oldmanager'], function() {
@@ -44,6 +57,13 @@ Route::group(['prefix' => 'hiro', 'before' => 'auth'], function() {
 			'as' => 'oldmanager.delete',
 			'uses' => 'OldmanagerController@delete'
 			]);
+		Route::get('list', [
+			'as' => 'oldmanager.list',
+			'uses' => function() {
+				$url = "http://192.168.1.250/hiro_manager/chuukoki/list.php";
+				return Redirect::to($url);
+			},
+			]);
 	});
 	// 業販
 	Route::group(['prefix' => 'trade'], function() {
@@ -62,6 +82,13 @@ Route::group(['prefix' => 'hiro', 'before' => 'auth'], function() {
 		Route::post('{id}/delete', [
 			'as' => 'trade.delete',
 			'uses' => 'TradeController@delete'
+			]);
+		Route::get('list', [
+			'as' => 'trade.list',
+			'uses' => function() {
+				$url = "http://192.168.1.250/hiro_manager/system/gyouhan/list.php";
+				return Redirect::to($url);
+			}
 			]);
 	});
 
@@ -83,6 +110,12 @@ Route::group(['prefix' => 'hiro', 'before' => 'auth'], function() {
 			'as' => 'newdirect.delete',
 			'uses' => 'NewdirectController@delete'
 			]);
+		Route::get('list', [
+			'as' => 'newdirect.list',
+			'uses' => function() {
+				$url = "http://192.168.1.250/hiro_manager/system/chokuhan_new/list.php";
+				return Redirect::to($url);
+			}]);
 	});
 
 	//直販(中古)
@@ -103,6 +136,12 @@ Route::group(['prefix' => 'hiro', 'before' => 'auth'], function() {
 			'as' => 'olddirect.delete',
 			'uses' => 'OlddirectController@delete'
 			]);
+		Route::get('list', [
+			'as' => 'olddirect.list',
+			'uses' => function() {
+				$url = "http://192.168.1.250/hiro_manager/system/chokuhan_old/list.php";
+				return Redirect::to($url);
+			}]);
 	});
 
 });

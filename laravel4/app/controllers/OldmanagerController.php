@@ -4,13 +4,6 @@
 class OldmanagerController extends BaseController
 {
 
-	public function Index()
-	{
-		$data = TblOldmanager::get();
-		Log::debug(print_r($data, true));
-
-		return View::make('home.index', compact('data'));
-	}
 
 	/**
 	 * 編集画面アクセスしたときのアクション
@@ -48,19 +41,16 @@ class OldmanagerController extends BaseController
 			];
 		} else {
 			$data = TblOldmanager::whereId($id)->first();
+			$data['note'] = $this->selectEscape( $data['note'] );
+			$data['day'] = ($data['day'] == "0000-00-00") ? '' : $data['day'];
+			$data['storage_day'] = ($data['storage_day'] == "0000-00-00") ? '' : $data['storage_day'];
+			$data['pay_day'] = ($data['pay_day'] == "0000-00-00") ? '' : $data['pay_day'];
+			$data['deli_oneday'] = ($data['deli_oneday'] == "0000-00-00") ? '' : $data['deli_oneday'];
+			$data['deli_day'] = ($data['deli_day'] == "0000-00-00") ? '' : $data['deli_day'];
 		}
 		Log::debug(print_r($data, true));
-		$default = ['' => ''];
-		$users = $default + MstUser::select('id', DB::raw('CONCAT(id, ".", name1) AS name1'))->lists('name1','id');
-		$halls = $default + MstHall::select('id', DB::raw('CONCAT(id, ".", name1) AS name1'))->lists('name1','id');
-		$machines = $default + MstMachine::select('id', DB::raw('CONCAT(id, ".", name1) AS name1'))->lists('name1','id');
-		$legals = $default + MstLegal::select('id', DB::raw('CONCAT(id, ".", name1) AS name1'))->lists('name1','id');
-		$sources = $default + MstOrdersource::select('id', DB::raw('CONCAT(id, ".", name1) AS name1'))->lists('name1','id');
-		$contacts = $default + MstOrdercontact::select('id', DB::raw('CONCAT(id, ".", name1) AS name1'))->lists('name1','id');
-		return View::make(
-			'main.edit.oldmanager',
-			compact('data', 'users', 'halls', 'machines', 'legals', 'sources', 'contacts')
-			);
+		return View::make('main.edit.oldmanager', compact('data'))
+						->with('message', Session::pull('message', false));
 	}
 
 	/**
@@ -75,12 +65,13 @@ class OldmanagerController extends BaseController
 
 		$input['id'] = $id;
 		$input['no'] = $no;
+		$input['note'] = $this->inputEscape( $input['note'] );
 		unset($input['_token']);
 		Log::debug(print_r($input, true));
 
 		TblOldmanager::insert($input);
 
-		return Redirect::route('oldmanager.edit', ['id' => $id]);
+		return Redirect::route('oldmanager.edit', ['id' => $id])->with('message', '正常に登録しました。');
 	}
 
 	/**
@@ -99,12 +90,13 @@ class OldmanagerController extends BaseController
 		{
 			$input['no'] = $this->getNewNo($input);
 		}
+		$input['note'] = $this->inputEscape( $input['note'] );
 
 		Log::debug(print_r($input, true));
 
 		TblOldmanager::find($id)->fill($input)->save();
 
-		return Redirect::route('oldmanager.edit', ['id' => $id]);
+		return Redirect::route('oldmanager.edit', ['id' => $id])->with('message', '正常に登録しました。');
 	}
 
 	/**
@@ -114,7 +106,7 @@ class OldmanagerController extends BaseController
 	public function delete($id) {
 		TblOldmanager::find($id)->fill(['del'=>1])->save();
 
-		return Redirect::route('oldmanager.edit', ['id' => 0]);
+		return Redirect::route('oldmanager.edit', ['id' => 0])->with('message', '削除しました。');
 	}
 
 	private function getNewNo($input)

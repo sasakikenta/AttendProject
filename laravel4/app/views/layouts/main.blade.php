@@ -32,7 +32,13 @@
 <!-- ▲フッター▲ -->
 
 @section('js-link')
-
+	@if( isset($message) && $message )
+        <script>
+            window.onload = function() {
+                alert("{{ $message }}");
+            };
+        </script>
+    @endif
 @show
 
 </body>

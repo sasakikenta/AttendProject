@@ -4,7 +4,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class TblOlddirect extends Model
 {
-	protected $table = 'tbl_direct_nold';
+	protected $table = 'tbl_direct_old';
 	
 	protected $guarded = ['id'];
 

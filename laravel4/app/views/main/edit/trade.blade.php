@@ -10,6 +10,11 @@
       </style>
 @stop
 
+@section('js-link')
+    @parent
+    {{ HTML::script('js/main/getLegal.js') }}
+@stop
+
 @section('title')
 売上管理 入力(業販)
 @stop
@@ -43,11 +48,11 @@
                             </tr>
                             <tr>
                                 <td class="td_4">新台</td>
-                                <td class="td_6">{{ Form::text("new", Input::old("new", $data['new'])) }}</td>
+                                <td class="td_6">{{ Form::number("new", Input::old("new", $data['new'])) }}</td>
                             </tr>
                             <tr>
                                 <td class="td_4">ユニット</td>
-                                <td class="td_6">{{ Form::text("unit", Input::old("unit", $data['unit'])) }}</td>
+                                <td class="td_6">{{ Form::number("unit", Input::old("unit", $data['unit'])) }}</td>
                             </tr>
                             <tr>
                                 <td class="td_4">納品予定</td>
@@ -63,7 +68,7 @@
                             </tr>
                             <tr>
                                 <td class="td_4">法人名</td>
-                                <td class="td_6">自動表示</td>
+                                <td class="td_6" id="legal" data-url="{{ route('hiro.getlegal') }}"></td>
                             </tr>
                         </tbody>
                     </table>
@@ -84,7 +89,7 @@
                             </tr>
                             <tr>
                                 <td class="td_4">請求額</td>
-                                <td class="td_6">{{ Form::text("bill_money", Input::old("bill_money", $data['bill_money'])) }}</td>
+                                <td class="td_6">{{ Form::number("bill_money", Input::old("bill_money", $data['bill_money'])) }}</td>
                             </tr>
                             <tr>
                                 <td class="td_4">方法</td>

@@ -13,10 +13,10 @@
     <th colspan="2">中古機管理表</th>
     <td class="td_5">
       <button class="navi-btn" onclick="window.open('{{ route( 'oldmanager.edit', 0 ) }}', 'edit', 'width=900px,height=800px,scrollbars=yes')">新規登録</button>
-            <a href="http://192.168.1.250/hiro_manager/chuukoki/list.php">
+            <a href="{{ route( 'oldmanager.list' ) }}">
               <input type="button" class="navi-btn" value="一覧" />
             </a>
-            <input type="button" class="navi-btn" value="印刷" />
+            <!-- <input type="button" class="navi-btn" value="印刷" /> -->
     </td>
   </tr>
   <tr>
@@ -24,30 +24,30 @@
       <th align="center" class="td_2" style="color:black !important;">売契業販</th>
         <td class="td_5">
           <button class="navi-btn" onclick="window.open('{{ route( 'trade.edit', 0 ) }}', 'edit', 'width=900px,height=800px,scrollbars=yes')">新規登録</button>
-            <a href="http://192.168.1.250/hiro_manager/system/gyouhan/list.php">
+            <a href="{{ route( 'trade.list' ) }}">
               <input type="button" class="navi-btn" value="一覧" />
             </a>
-            <input type="button" class="navi-btn" value="印刷" />
+            <!-- <input type="button" class="navi-btn" value="印刷" /> -->
         </td>
   </tr>
   <tr>
       <th align="center" class="td_2" style="color:black !important;">売契直販新台</th>
         <td class="td_5">
           <button class="navi-btn" onclick="window.open('{{ route( 'newdirect.edit', 0 ) }}', 'edit', 'width=900px,height=800px,scrollbars=yes')">新規登録</button>
-            <a href="http://192.168.1.250/hiro_manager/system/chokuhan_new/list.php">
+            <a href="{{ route( 'newdirect.list' ) }}">
               <input type="button" class="navi-btn" value="一覧" />
             </a>
-            <input type="button" class="navi-btn" value="印刷" />
+            <!-- <input type="button" class="navi-btn" value="印刷" /> -->
         </td>
   </tr>
   <tr>
       <th align="center" class="td_2" style="color:black !important;">売契直販中古</th>
         <td class="td_5">
           <button class="navi-btn" onclick="window.open('{{ route( 'olddirect.edit', 0 ) }}', 'edit', 'width=900px,height=800px,scrollbars=yes')">新規登録</button>
-            <a href="http://192.168.1.250/hiro_manager/system/chokuhan_old/list.php">
+            <a href="{{ route( 'olddirect.list' ) }}">
               <input type="button" class="navi-btn" value="一覧" />
             </a>
-            <input type="button" class="navi-btn" value="印刷" />
+            <!-- <input type="button" class="navi-btn" value="印刷" /> -->
         </td>
   </tr>
   <tr>

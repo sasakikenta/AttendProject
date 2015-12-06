@@ -17,13 +17,13 @@
 @stop
 
 @section('js-link')
-@parent
-{{ HTML::script('js/main/detail/oldmanager.js') }}
-{{ HTML::script('js/main/edit/ajaxSubmitOldmanager.js') }}
+    @parent
+    {{ HTML::script('js/main/detail/oldmanager.js') }}
 @stop
 
-@section('content')
 
+
+@section('content')
 @if ($data['id'] == '')
     {{ Form::open(['url' => route( 'oldmanager.create' )]) }}
 @else
@@ -115,10 +115,10 @@
                                 <td class="td_6">{{ Form::select("buy_hall", $halls, Input::old("buy_hall", $data['buy_hall']), ["data-placeholder"=>"買取・預り先ホールを選択してください"]) }}</td>
                             </tr>
                             <tr>
-                                <td class="td_4">購入金額</td><td class="td_6">{{ Form::text("buy_money", Input::old("buy_money", $data['buy_money'])) }}</td>
+                                <td class="td_4">購入金額</td><td class="td_6">{{ Form::number("buy_money", Input::old("buy_money", $data['buy_money'])) }}</td>
                             </tr>
                             <tr>
-                                <td class="td_4">運賃</td><td class="td_6">{{ Form::text("deli_money", Input::old("deli_money", $data['deli_money'])) }}</td>
+                                <td class="td_4">運賃</td><td class="td_6">{{ Form::number("deli_money", Input::old("deli_money", $data['deli_money'])) }}</td>
                             </tr>
                             <tr>
                                 <td class="td_4">購入合計</td><td id="oldmanager-buytotal" class="td_6"></td>
@@ -134,7 +134,7 @@
                                 <td class="td_6">{{ Form::select("sell_legal", $legals, Input::old("sell_legal", $data['sell_legal']), ["data-placeholder"=>"売却・出庫先法人を選択してください"]) }}</td>
                             </tr>
                             <tr>
-                                <td class="td_4">売却代金</td><td class="td_6">{{ Form::text("sell_money", Input::old("sell_money", $data['sell_money'])) }}</td>
+                                <td class="td_4">売却代金</td><td class="td_6">{{ Form::number("sell_money", Input::old("sell_money", $data['sell_money'])) }}</td>
                             </tr>
                             <tr>
                                 <td class="td_4">差額</td><td id="oldmanager-arari" class="td_6"></td>
